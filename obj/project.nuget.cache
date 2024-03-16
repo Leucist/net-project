@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "A//irf8s1KiHZsn0hHKG60fl3zKz+E1XGE6fk+Ixb3SEX64cuo2FAIhP/vNz9zxSVs9xE9OGHgDIX5ZvOLlzmA==",
+  "dgSpecHash": "XETdl9eEXwM=",
   "success": true,
-  "projectFilePath": "D:\\VS_Projects\\Educational_platform\\Educational_platform.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/leucist/Programming/NET/Educational_platform/Educational_platform.csproj",
+  "expectedPackageFiles": [
+    "/home/leucist/.nuget/packages/microsoft.netcore.app.ref/8.0.5/microsoft.netcore.app.ref.8.0.5.nupkg.sha512",
+    "/home/leucist/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.5/microsoft.aspnetcore.app.ref.8.0.5.nupkg.sha512",
+    "/home/leucist/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.5/microsoft.netcore.app.host.linux-x64.8.0.5.nupkg.sha512"
+  ],
   "logs": []
 }
