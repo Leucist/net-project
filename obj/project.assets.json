@@ -8,24 +8,31 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/home/leucist/.nuget/packages/": {}
+    "C:\\Users\\kolyasiquez\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/leucist/Programming/NET/Educational_platform/Educational_platform.csproj",
+      "projectUniqueName": "C:\\Users\\kolyasiquez\\source\\repos\\Educational_platform\\Educational_platform\\Educational_platform.csproj",
       "projectName": "Educational_platform",
-      "projectPath": "/home/leucist/Programming/NET/Educational_platform/Educational_platform.csproj",
-      "packagesPath": "/home/leucist/.nuget/packages/",
-      "outputPath": "/home/leucist/Programming/NET/Educational_platform/obj/",
+      "projectPath": "C:\\Users\\kolyasiquez\\source\\repos\\Educational_platform\\Educational_platform\\Educational_platform.csproj",
+      "packagesPath": "C:\\Users\\kolyasiquez\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kolyasiquez\\source\\repos\\Educational_platform\\Educational_platform\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/leucist/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\kolyasiquez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -59,20 +66,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.5, 8.0.5]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.linux-x64",
-            "version": "[8.0.5, 8.0.5]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.5, 8.0.5]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -81,7 +74,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

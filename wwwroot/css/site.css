@@ -1,22 +1,114 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.navbar {
+    height: 60px; /* або будь-яка інша необхідна висота */
+    line-height: 60px; /* вертикальне вирівнювання тексту */
+}
+
+    .navbar img {
+        height: 45px; /* налаштуйте висоту зображення відповідно до висоти навбару */
+        width: auto; /* збереження пропорцій зображення */
+    }
+
+    .navbar .navbar-brand {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+        .navbar .navbar-brand img {
+            max-height: 100%;
+            height: auto;
+        }
+
+.nav-item .nav-link {
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+    .nav-item .nav-link:hover {
+        color: lightskyblue;
+    }
+
+.navbar-nav .nav-item {
+    margin-right: 15px;
+}
+
+.custom-icon-class {
+    margin-top: 21px;
+    font-size: 21px;
+}
+
+.text {
+    font-size: 12px;
+}
+
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+.modal-content {
+    padding: 10px;
+}
+
+.modal-header, .modal-body {
+    padding: 10px;
+}
+
+.mb-1 {
+    margin-bottom: 0.5rem;
+}
+
+.form-label {
+    margin-bottom: 0.2rem;
+}
+
+.btn-primary {
+    width: 100%;
+}
+
+.text {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.text-sign-in {
+    margin-top: 10px;
+    text-align: center;
+    color: blue;
+}
+
+    .text-sign-in:hover {
+        margin-top: 10px;
+        text-align: center;
+        color: red;
+    }
+
+.footer-style {
+    margin-top: 500px;
 }
