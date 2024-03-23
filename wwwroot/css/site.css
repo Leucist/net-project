@@ -112,3 +112,40 @@ body {
 .footer-style {
     margin-top: 500px;
 }
+
+.top-courses {
+    margin-top: 50px;
+}
+
+.top-row, .bottom-row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.course-card {
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 30%;
+    text-align: left;
+    color: white;
+}
+
+    .course-card img {
+        width: 100%;
+        height: auto;
+    }
+
+.course-info {
+    padding: 15px;
+}
+
+    .course-info h3 {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .course-info p {
+        margin: 10px 0 0;
+    }
