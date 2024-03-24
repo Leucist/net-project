@@ -1,5 +1,5 @@
 ﻿@page
-@model Index1Model
+@model SignUp
 @{
 }
 
@@ -20,26 +20,26 @@
                         <h5 class="card-title">Sign up</h5>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form asp-page="/SignUp" method="post">
                             <div class="mb-3">
                                 <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" required>
+                                <input type="text" class="form-control" id="firstName" required asp-for="Name">
                             </div>
                             <div class="mb-3">
                                 <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" required>
+                                <input type="text" class="form-control" id="lastName" required asp-for="Surname">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
+                                <input type="email" class="form-control" id="email" required asp-for="Email">
                             </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" required>
+                                <input type="text" class="form-control" id="username" required asp-for="Username">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" required>
+                                <input type="password" class="form-control" id="password" required asp-for="Password">
                             </div>
                             <button type="submit" class="btn btn-primary">Sign up</button>
                         </form>
