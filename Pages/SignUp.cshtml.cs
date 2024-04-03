@@ -53,7 +53,7 @@ namespace Educational_platform.Pages
             // *Creates a new user account* await may be used.
 
             // Redirect to a success page or display a success message
-            return RedirectToPage("./Index");
+            return RedirectToPage("./SignIn");
         }
 
         public void OnGet()
