@@ -8,16 +8,19 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Educational_platform.Data;
 using Educational_platform.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Educational_platform.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UsersContext _context;
+        private readonly PasswordHasher<User> _passwordHasher;
 
         public AccountController(UsersContext context)
         {
             _context = context;
+            _passwordHasher = new PasswordHasher<User>();
         }
 
         [HttpPost]
@@ -42,8 +45,10 @@ namespace Educational_platform.Controllers
                 Surname = surname,
                 Email = email,
                 Username = username,
-                Password = password 
+                // Password = password 
             };
+            // Hash the password
+            newUser.Password = _passwordHasher.HashPassword(newUser, password);
 
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
