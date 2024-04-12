@@ -62,5 +62,41 @@ namespace Educational_platform.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(string username, string password)
+        {
+            // Check if the user with the given username exists
+            var user = await _context.Users
+                .Where(u => u.Username == username)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                // User with the given username not found
+                ModelState.AddModelError(string.Empty, "No user with the given username was found.");
+                return View();
+            }
+
+            // Check the hashed password
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                // Password incorrect
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                return View();
+            }
+
+            // Auth successful
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult SignIn()
+        {
+            return View();
+        }
     }
 }
