@@ -15,12 +15,12 @@ namespace Educational_platform.Controllers
     public class AccountController : Controller
     {
         private readonly UsersContext _context;
-        private readonly PasswordHasher<User> _passwordHasher;
+        private readonly PasswordHasher<Users> _passwordHasher;
 
         public AccountController(UsersContext context)
         {
             _context = context;
-            _passwordHasher = new PasswordHasher<User>();
+            _passwordHasher = new PasswordHasher<Users>();
         }
 
         [HttpPost]
