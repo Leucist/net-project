@@ -6,12 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
+using Educational_platform.Data;
+using Educational_platform.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Educational_platform.Pages
 {
     public class SignUp : PageModel
     {
         private readonly ILogger<SignUp> _logger;
+        private readonly UsersContext _context;
+        private readonly PasswordHasher<Users> _passwordHasher;
 
         public SignUp(ILogger<SignUp> logger)
         {
