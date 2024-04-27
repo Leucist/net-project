@@ -6,16 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
+using Educational_platform.Data;
+using Microsoft.AspNetCore.Identity;
+using Educational_platform.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Educational_platform.Pages
 {
     public class SignIn : PageModel
     {
-        private readonly ILogger<SignIn> _logger;
+        
+        private readonly UsersContext _context;
+        private readonly PasswordHasher<Users> _passwordHasher;
 
-        public SignIn(ILogger<SignIn> logger)
+        public SignIn(UsersContext context)
         {
-            _logger = logger;
+            _context = context;
+            _passwordHasher = new PasswordHasher<Users>();
         }
 
         [BindProperty]
@@ -34,7 +41,30 @@ namespace Educational_platform.Pages
                 return Page();
             }
 
-            // *Creates a new user account* await may be used.
+            // Check if the user with the given username exists
+            var user = await _context.Users
+                .Where(u => u.Username == Username)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                // User with the given username not found
+                ModelState.AddModelError(string.Empty, "No user with the given username was found.");
+                return Page();
+            }
+
+            // Check the hashed password
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, Password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                // Password incorrect
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                return Page();
+            }
+
+
+            // return RedirectToAction("Index", "Home");
 
             // Redirect to a success page or display a success message
             return RedirectToPage("./Index");
