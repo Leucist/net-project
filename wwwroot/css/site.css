@@ -149,3 +149,8 @@ body {
     .course-info p {
         margin: 10px 0 0;
     }
+
+.search-box{
+    margin-top: 50px;
+    width: 1000px;
+}
