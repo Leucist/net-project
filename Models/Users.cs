@@ -15,7 +15,10 @@ namespace Educational_platform.Models
         public string Surname { get; set; }
         [Required]
         [MaxLength(100)]
-        public string Login { get; set; }
+        public string Email { get; set; }
+        [Required]
+        [MaxLength(100)]
+        public string Username { get; set; }
         [Required]
         [MaxLength(100)]
         public string Password { get; set; }

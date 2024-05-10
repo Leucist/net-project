@@ -6,17 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
+using Educational_platform.Data;
+using Educational_platform.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Educational_platform.Pages
 {
     public class SignUp : PageModel
     {
-        private readonly ILogger<SignUp> _logger;
+        // private readonly ILogger<SignUp> _logger;
+        private readonly UsersContext _context;
+        private readonly PasswordHasher<Users> _passwordHasher;
 
-        public SignUp(ILogger<SignUp> logger)
+        public SignUp(UsersContext context)
         {
-            _logger = logger;
-            // SignUpModel = new Educational_platform.Models.SignUpModel(); // Initialize the SignUpModel instance
+            // _logger = logger;
+            _context = context;
+            _passwordHasher = new PasswordHasher<Users>();
         }
 
         // [BindProperty]
@@ -50,10 +57,38 @@ namespace Educational_platform.Pages
                 return Page();
             }
 
-            // *Creates a new user account* await may be used.
+            // Check if the user with the given username or email already exists
+            var existingUser = await _context.Users
+                .Where(u => u.Username == Username || u.Email == Email)
+                .FirstOrDefaultAsync();
+
+            if (existingUser != null)
+            {
+                // User with such username or email already exists
+                ModelState.AddModelError(string.Empty, "A user with the same username or email already exists.");
+                return Page();
+            }
+
+            // Create new user
+            var newUser = new Users
+            {
+                Name = Name,
+                Surname = Surname,
+                Email = Email,
+                Username = Username,
+                // Password = password 
+            };
+            // Hash the password
+            newUser.Password = _passwordHasher.HashPassword(newUser, Password);
+
+            _context.Users.Add(newUser);
+            await _context.SaveChangesAsync();
+
+            // Redirect to the SignIn
+            // return RedirectToAction("SignIn", "Account");
 
             // Redirect to a success page or display a success message
-            return RedirectToPage("./Index");
+            return RedirectToPage("./SignIn");
         }
 
         public void OnGet()

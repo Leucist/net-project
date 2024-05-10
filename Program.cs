@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Educational_platform.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Add the database context configuration here
+builder.Services.AddDbContext<UsersContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EducationalPlatformDB")));
 
 var app = builder.Build();
 
