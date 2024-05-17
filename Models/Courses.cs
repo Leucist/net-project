@@ -13,6 +13,6 @@ namespace Educational_platform.Models
         public string Description { get; set; }
 
         public virtual ICollection<Enrollments> Enrollments { get; set; }
-        public virtual ICollection<Pages> Pages { get; set; }  // Add this line
+        public virtual ICollection<Pages> Pages { get; set; } 
     }
 }
