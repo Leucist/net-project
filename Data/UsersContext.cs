@@ -7,6 +7,7 @@ namespace Educational_platform.Data
     {
         public UsersContext(DbContextOptions options) : base(options)
         {
+
         }
 
         public DbSet<Users> Users { get; set; }
