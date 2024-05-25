@@ -22,8 +22,7 @@ namespace Educational_platform.Pages
         public CatalogueModel(UsersContext context)
         {
             _context = context;
-            // - a bit redundant initialisations below, may as well not use them - (c) leucist
-            // CoursesOnPage = new HashSet<Courses>();
+            CoursesOnPage = new HashSet<Courses>();
             // KeywordsInput = "";
         }
 
