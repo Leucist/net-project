@@ -23,14 +23,14 @@ namespace Educational_platform.Pages
         {
             _context = context;
             CoursesOnPage = new HashSet<Courses>();
-            KeywordsInput = "";
         }
 
         public async Task<IActionResult> OnPostAsync() {
             // - Search yet to be improved by forming the top based on the amount of the matching keywords in Name/Desc. - (c) leucist
-            
+            if (KeywordsInput is null) {
+                return Page();
+            }
             string[] keywords = KeywordsInput.Split(' ');
-
             // Using async search for each keyword
             var tasks = keywords.Select(async keyword => {
                 // Retrieves 10 courses, where each matches at least one keyword from the KeywordsInput 
