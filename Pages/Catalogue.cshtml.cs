@@ -12,22 +12,61 @@ namespace Educational_platform.Pages
     {
         private readonly UsersContext _context;
 
+        private int shownCoursesAmount = 10;
+
+        [BindProperty]
+        public HashSet<Courses> CoursesOnPage { get; set; }     /* HashSet to avoid duplicates in search */
+        [BindProperty]
+        public string KeywordsInput { get; set; }
+
         public CatalogueModel(UsersContext context)
         {
             _context = context;
+            // - a bit redundant initialisations below, may as well not use them - (c) leucist
+            // CoursesOnPage = new HashSet<Courses>();
+            // KeywordsInput = "";
         }
 
-        [BindProperty]
-        public List<Courses> CoursesOnPage { get; set; }
+        public async Task<IActionResult> OnPostAsync() {
+            // - Search yet to be improved by forming the top based on the amount of the matching keywords in Name/Desc. - (c) leucist
+            
+            string[] keywords = KeywordsInput.Split(' ');
 
-        // public void OnGet() { }
+            // Using async search for each keyword
+            var tasks = keywords.Select(async keyword => {
+                // Retrieves 10 courses, where each matches at least one keyword from the KeywordsInput 
+                var result = await _context.Courses
+                    .Where(c => c.Name.Contains(keyword) || c.Description.Contains(keyword))
+                    // .OrderBy(c => c.Enrollments.Count) - may be used to form the top of some sort - (c) leucist
+                    .Take(shownCoursesAmount)
+                    .ToListAsync();
+
+                lock(CoursesOnPage) {
+                    foreach(var course in result) {
+                        // if there are still less than 'shownCoursesAmount' number of courses found
+                        if (!(CoursesOnPage.Count >= shownCoursesAmount))
+                        CoursesOnPage.Add(course);
+                    }
+                }
+            });
+            // Waits until all of the threads are completed
+            await Task.WhenAll(tasks);
+
+            return Page();
+        }
+
         public async Task OnGetAsync()
         {
-            // Retrieve the first 10 courses from the database
-            CoursesOnPage = await _context.Courses
+            // Buffer variable to store newly retrieved courses before their placement in HashSet
+            List<Courses> coursesOnPage;
+            // Retrieves the first 'shownCoursesAmount' number of courses from the database
+            coursesOnPage = await _context.Courses
                 .OrderBy(c => c.Id)
-                .Take(10)
+                .Take(shownCoursesAmount)
                 .ToListAsync();
+            foreach (var course in coursesOnPage) {
+                CoursesOnPage.Add(course);
+            }
         }
     }
 }
