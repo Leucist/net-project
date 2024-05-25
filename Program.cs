@@ -4,7 +4,7 @@ using Educational_platform.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // - Added so the server will be visible in a local network - (c) leucist
-builder.WebHost.UseUrls("http://0.0.0.0:5000");
+// builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 
 AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "Database"));
