@@ -28,6 +28,7 @@ namespace Educational_platform.Pages
         public async Task<IActionResult> OnPostAsync() {
             // - Search yet to be improved by forming the top based on the amount of the matching keywords in Name/Desc. - (c) leucist
             if (KeywordsInput is null) {
+                await LoadDefaultCoursesAsync();
                 return Page();
             }
             string[] keywords = KeywordsInput.Split(' ');
@@ -56,6 +57,10 @@ namespace Educational_platform.Pages
 
         public async Task OnGetAsync()
         {
+            await LoadDefaultCoursesAsync();
+        }
+
+        private async Task LoadDefaultCoursesAsync() {
             // Buffer variable to store newly retrieved courses before their placement in HashSet
             List<Courses> coursesOnPage;
             // Retrieves the first 'shownCoursesAmount' number of courses from the database
