@@ -18,12 +18,20 @@
         <input type="text" class="search-box" placeholder="Search courses, materials and additional content">
     </div>
 
-     @foreach (var course in Model.CoursesOnPage)
-    {
+    @if (@Model.CoursesOnPage.Count == 0) {
         <div>
-            <h2>@course.Name</h2>
-            <p>@course.Description</p>
+            <h2>No courses found.</h2>
+            <p>Try using another keywords in search or check the spelling.</p>
         </div>
+    }
+    else {
+        @foreach (var course in Model.CoursesOnPage)
+        {
+            <div>
+                <h2>@course.Name</h2>
+                <p>@course.Description</p>
+            </div>
+        }
     }
             
 </body>
