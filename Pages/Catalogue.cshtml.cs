@@ -23,7 +23,7 @@ namespace Educational_platform.Pages
         {
             _context = context;
             CoursesOnPage = new HashSet<Courses>();
-            // KeywordsInput = "";
+            KeywordsInput = "";
         }
 
         public async Task<IActionResult> OnPostAsync() {
