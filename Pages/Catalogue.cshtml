@@ -15,7 +15,10 @@
 </head>
 <body>
     <div class="search-container">
-        <input type="text" class="search-box" placeholder="Search courses, materials and additional content">
+        <form asp-page="/Catalogue" method="post">
+            <input type="text" class="search-box" placeholder="Search courses, materials and additional content" asp-for="KeywordsInput">
+            <button type="submit" class="btn btn-primary">Search 🔍</button>
+        </form>
     </div>
 
     @if (@Model.CoursesOnPage.Count == 0) {
