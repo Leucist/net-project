@@ -31,23 +31,23 @@ namespace Educational_platform.Pages
 
         [BindProperty]
         [Required]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         [BindProperty]
         [Required]
-        public string? Surname { get; set; }
+        public string Surname { get; set; }
 
         [BindProperty]
         [Required]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         [BindProperty]
         [Required]
-        public string? Username { get; set; }
+        public string Username { get; set; }
 
         [BindProperty]
         [Required]
-        public string? Password { get; set; }
+        public string Password { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
