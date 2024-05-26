@@ -25,11 +25,9 @@ namespace Educational_platform.Pages
             CoursesOnPage = new HashSet<Courses>();
         }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
+        public async Task<IActionResult> OnPostAsync() {
             // - Search yet to be improved by forming the top based on the amount of the matching keywords in Name/Desc. - (c) leucist
-            if (KeywordsInput is null)
-            {
+            if (KeywordsInput is null) {
                 await LoadDefaultCoursesAsync();
                 return Page();
             }
@@ -43,13 +41,11 @@ namespace Educational_platform.Pages
                     .Take(shownCoursesAmount)
                     .ToListAsync();
 
-                lock (CoursesOnPage)
-                {
-                    foreach (var course in result)
-                    {
+                lock(CoursesOnPage) {
+                    foreach(var course in result) {
                         // if there are still less than 'shownCoursesAmount' number of courses found
                         if (!(CoursesOnPage.Count >= shownCoursesAmount))
-                            CoursesOnPage.Add(course);
+                        CoursesOnPage.Add(course);
                     }
                 }
             });
@@ -64,8 +60,7 @@ namespace Educational_platform.Pages
             await LoadDefaultCoursesAsync();
         }
 
-        private async Task LoadDefaultCoursesAsync()
-        {
+        private async Task LoadDefaultCoursesAsync() {
             // Buffer variable to store newly retrieved courses before their placement in HashSet
             List<Courses> coursesOnPage;
             // Retrieves the first 'shownCoursesAmount' number of courses from the database
@@ -73,8 +68,7 @@ namespace Educational_platform.Pages
                 .OrderBy(c => c.Id)
                 .Take(shownCoursesAmount)
                 .ToListAsync();
-            foreach (var course in coursesOnPage)
-            {
+            foreach (var course in coursesOnPage) {
                 CoursesOnPage.Add(course);
             }
         }
