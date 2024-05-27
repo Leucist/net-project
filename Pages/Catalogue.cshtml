@@ -19,6 +19,10 @@
         </form>
     </div>
 
+    <div>
+        <a href="/AddCourse/">Add Course</a>
+    </div>
+
     @if (Model.CoursesOnPage.Count == 0)
     {
         <div class="course-list">
@@ -32,7 +36,7 @@
             @foreach (var course in Model.CoursesOnPage)
             {
                 <div>
-                    <h2>@course.Title</h2>
+                    <h2>@course.Name</h2>
                     <p>@course.Description</p>
                 </div>
             }

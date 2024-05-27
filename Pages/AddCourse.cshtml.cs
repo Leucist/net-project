@@ -29,7 +29,7 @@ namespace Educational_platform.Pages
 
         public async Task<IActionResult> OnPostAsync() {
             var existingCourse = await _context.Courses
-                .Where(c => c.Title == CourseTitle)
+                .Where(c => c.Name == CourseTitle)
                 .FirstOrDefaultAsync();
             if (existingCourse != null) {
                 // Course with such title already exists
@@ -40,7 +40,7 @@ namespace Educational_platform.Pages
             // - Description and title may be checked - (c) leucist
 
             var newCourse = new Courses {
-                Title = CourseTitle,
+                Name = CourseTitle,
                 Description = CourseDescription,
             };
 
