@@ -31,12 +31,12 @@ namespace Educational_platform.Pages
                 await LoadDefaultCoursesAsync();
                 return Page();
             }
-            string[] keywords = KeywordsInput.Split(' ');
+            string[] keywords = KeywordsInput.Trim().Split(' ');
             // Using async search for each keyword
             var tasks = keywords.Select(async keyword => {
                 // Retrieves 10 courses, where each matches at least one keyword from the KeywordsInput 
                 var result = await _context.Courses
-                    .Where(c => c.Title.Contains(keyword) || c.Description.Contains(keyword))
+                    .Where(c => c.Name.Contains(keyword) || c.Description.Contains(keyword))
                     // .OrderBy(c => c.Enrollments.Count) - may be used to form the top of some sort - (c) leucist
                     .Take(shownCoursesAmount)
                     .ToListAsync();
