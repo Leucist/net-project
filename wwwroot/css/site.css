@@ -1,3 +1,49 @@
+.search-container {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    margin-top: 20px; 
+    margin-left: 20px;
+}
+
+.search-box {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    width: 600px; 
+    margin-right: -4px; 
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background-color: #800080;
+    color: white;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+    .search-button:hover {
+        background-color: #5a005a; 
+    }
+
+.course-list {
+    margin-top: 20px; 
+    margin-left: 20px; 
+}
+
+    .course-list h2, .course-list p {
+        margin-left: 20px; 
+    }
+
+
+
+
+
 html {
     font-size: 14px;
 }
@@ -22,13 +68,13 @@ body {
 }
 
 .navbar {
-    height: 60px; /* або будь-яка інша необхідна висота */
-    line-height: 60px; /* вертикальне вирівнювання тексту */
+    height: 60px; 
+    line-height: 60px; 
 }
 
     .navbar img {
-        height: 45px; /* налаштуйте висоту зображення відповідно до висоти навбару */
-        width: auto; /* збереження пропорцій зображення */
+        height: 45px; 
+        width: auto; 
     }
 
     .navbar .navbar-brand {
@@ -64,7 +110,6 @@ body {
 .text {
     font-size: 12px;
 }
-
 
 .modal-dialog-centered {
     display: flex;
@@ -149,8 +194,3 @@ body {
     .course-info p {
         margin: 10px 0 0;
     }
-
-.search-box{
-    margin-top: 50px;
-    width: 1000px;
-}

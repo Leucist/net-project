@@ -4,38 +4,39 @@
 }
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Form</title>
-   
 </head>
 <body>
     <div class="search-container">
         <form asp-page="/Catalogue" method="post">
             <input type="text" class="search-box" placeholder="Search courses, materials and additional content" asp-for="KeywordsInput">
-            <button type="submit" class="btn btn-primary">Search 🔍</button>
+            <button type="submit" class="btn search-button">Search 🔍</button>
         </form>
     </div>
 
-    @if (Model.CoursesOnPage.Count == 0) {
-        <div>
+    @if (Model.CoursesOnPage.Count == 0)
+    {
+        <div class="course-list">
             <h2>No courses found.</h2>
             <p>Try using another keywords in search or check the spelling.</p>
         </div>
     }
-    else {
-        @foreach (var course in Model.CoursesOnPage)
-        {
-            <div>
-                <h2>@course.Name</h2>
-                <p>@course.Description</p>
-            </div>
-        }
+    else
+    {
+        <div class="course-list">
+            @foreach (var course in Model.CoursesOnPage)
+            {
+                <div>
+                    <h2>@course.Name</h2>
+                    <p>@course.Description</p>
+                </div>
+            }
+        </div>
     }
-            
 </body>
 </html>
