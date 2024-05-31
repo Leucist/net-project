@@ -1,0 +1,24 @@
+@page "{id:int}"
+@model Educational_platform.Pages.CoursePages.Course
+@{
+    if (Model.CourseOnPage != null)
+        ViewData["Title"] = Model.CourseOnPage.Name;
+    else
+        ViewData["Title"] = "Course not found";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h2>Course Details</h2>
+
+@if (Model.CourseOnPage != null)
+{
+    <div>
+        <h3>@Model.CourseOnPage.Name</h3>
+        <p>@Model.CourseOnPage.Description</p>
+    </div>
+}
+else
+{
+    <p>Course not found.</p>
+}

@@ -35,10 +35,10 @@
         <div class="course-list">
             @foreach (var course in Model.CoursesOnPage)
             {
-                <div>
+                <a href="/CoursePages/@course.Id">
                     <h2>@course.Name</h2>
                     <p>@course.Description</p>
-                </div>
+                </a>
             }
         </div>
     }
