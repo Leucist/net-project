@@ -5,8 +5,11 @@ namespace Educational_platform.Models
 {
     public class Enrollments
     {
+        [Required]
         [Key, Column(Order = 0)]
         public int IdCourses { get; set; }
+
+        [Required]
         [Key, Column(Order = 1)]
         public int IdUsers { get; set; }
 

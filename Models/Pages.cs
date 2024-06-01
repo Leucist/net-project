@@ -14,7 +14,12 @@ namespace Educational_platform.Models
         public int IdCourse { get; set; }
 
         [Required]
+        [MaxLength(400)]
         public string Path { get; set; }
+
+        [Required]
+        [MaxLength(300)]
+        public string PageName { get; set; }
 
         public virtual Courses Course { get; set; }
     }
