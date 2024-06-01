@@ -22,6 +22,8 @@ namespace Educational_platform.Pages.CoursePages
 
         [BindProperty]
         public Courses? CourseOnPage { get; set; }
+        [BindProperty]
+        public List<Models.Pages> CoursePages { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -32,6 +34,12 @@ namespace Educational_platform.Pages.CoursePages
             {
                 return RedirectToPage("../Error");
             }
+
+            CoursePages = await _context.Pages
+                .Where(p => p.IdCourse == id)
+                .OrderBy(p => p.IdPage)
+                .ToListAsync();
+
 
             return Page();
         }
