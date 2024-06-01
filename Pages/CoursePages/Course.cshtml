@@ -20,7 +20,7 @@
 
     @foreach (var coursePage in Model.CoursePages)
     {
-        <a asp-page="/CoursePages" asp-route-courseId="@coursePage.IdCourse" asp-route-pageId="@coursePage.IdPage">
+        <a asp-page="/CoursePages/CoursePage" asp-route-courseId="@coursePage.IdCourse" asp-route-pageId="@coursePage.IdPage">
             @coursePage.PageName
         </a><br>
     }
