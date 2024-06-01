@@ -2,23 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Educational_platform.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Educational_platform.Pages.CoursePages
 {
     public class CoursePage : PageModel
     {
-        private readonly ILogger<CoursePage> _logger;
+        private readonly UsersContext _context;
 
-        public CoursePage(ILogger<CoursePage> logger)
+        public CoursePage(UsersContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public void OnGet()
+        [BindProperty]
+        public Models.Pages? PageContent { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int pageId)
         {
+            PageContent = await _context.Pages
+                .FirstOrDefaultAsync(p => p.IdPage == pageId);
+
+            if (PageContent == null)
+            {
+                return RedirectToPage("../Error");
+            }
+
+            return Page();
         }
     }
 }

@@ -1,11 +1,14 @@
-@page
+@page "{courseId:int}/{pageId:int}"
 @model Educational_platform.Pages.CoursePages.CoursePage
 @{
-    ViewData["Title"] = "CoursePage";
+    if (Model.PageContent != null)
+        ViewData["Title"] = Model.PageContent.PageName;
+    else
+        ViewData["Title"] = "Page not found";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <div>
-    
+    Some page information ~
 </div>
