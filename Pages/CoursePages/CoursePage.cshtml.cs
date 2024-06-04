@@ -22,7 +22,7 @@ namespace Educational_platform.Pages.CoursePages
         [BindProperty]
         public Models.Pages? PageContent { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int pageId)
+        public async Task<IActionResult> OnGetAsync(int courseId, int pageId)
         {
             PageContent = await _context.Pages
                 .FirstOrDefaultAsync(p => p.IdPage == pageId);
