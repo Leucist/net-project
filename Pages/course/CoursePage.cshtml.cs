@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Educational_platform.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -20,20 +21,27 @@ namespace Educational_platform.Pages.course
         }
 
         [BindProperty]
-        public Models.Pages? PageContent { get; set; }
+        public Models.Pages? CurrentPage { get; set; }
 
         [BindProperty]
-        public List<Article>? ArticlesOnPage { get; set; }
+        public List<PageContent>? PageContent { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int courseId, int pageId)
         {
-            PageContent = await _context.Pages
+            // Loading current Page from the database
+            CurrentPage = await _context.Pages
                 .FirstOrDefaultAsync(p => p.IdPage == pageId);
-
-            if (PageContent == null)
+            // if page wasn't found
+            if (CurrentPage == null)
             {
                 return RedirectToPage("../Error");
             }
+
+            // Loading page content from the JSON file
+            string jsonString = System.IO.File.ReadAllText(CurrentPage.Path);
+            // Deserialising JSON to the PageContent List
+            JsonSerializerOptions options = new JsonSerializerOptions { Converters = { new PageContentConverter() } };
+            PageContent = JsonSerializer.Deserialize<List<PageContent>>(jsonString, options);
 
             return Page();
         }

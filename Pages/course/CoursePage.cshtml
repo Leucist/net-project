@@ -1,14 +1,28 @@
 @page "/course/{courseId:int}/{pageId:int}"
 @model Educational_platform.Pages.course.CoursePage
 @{
-    if (Model.PageContent != null)
-        ViewData["Title"] = Model.PageContent.PageName;
+    if (Model.CurrentPage is not null)
+        ViewData["Title"] = Model.CurrentPage.PageName;
     else
         ViewData["Title"] = "Page not found";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<div>
-    Some page information ~
-</div>
+@if (Model.PageContent is not null) {
+    foreach (var content in Model.PageContent) {
+        <div>
+            @if (content.Type == ContentType.Article) {
+                Article article = (Article) content;
+                @if (article.Header is not null) {
+                    <h2>@article.Header</h2>
+                }
+                @if (article.Text is not null) {
+                    <p2>@article.Text</p2>
+                }
+            }
+            else if (content.Type == ContentType.Video) { <p>Future job</p> }
+            else if (content.Type == ContentType.Test) { <p>Future job</p> }
+        </div>
+    }
+}
