@@ -18,12 +18,14 @@
         <p>Course description: @Model.CourseOnPage.Description</p>
     </div>
 
+    <ol>
     @foreach (var coursePage in Model.CoursePages)
     {
-        <a asp-page="/course/CoursePage" asp-route-courseId="@coursePage.IdCourse" asp-route-pageId="@coursePage.IdPage">
+        <li><a asp-page="/course/CoursePage" asp-route-courseId="@coursePage.IdCourse" asp-route-pageId="@coursePage.IdPage">
             @coursePage.PageName
-        </a><br>
+        </a></li>
     }
+    </ol>
 }
 else
 {
