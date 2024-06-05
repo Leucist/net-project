@@ -35,7 +35,7 @@
         <div class="course-list">
             @foreach (var course in Model.CoursesOnPage)
             {
-                <a asp-page="/CoursePages/Course" asp-route-id="@course.Id">
+                <a asp-page="/course/Course" asp-route-id="@course.Id">
                     <h2>@course.Name</h2>
                     <p>@course.Description</p>
                 </a>

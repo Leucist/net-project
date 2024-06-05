@@ -1,4 +1,4 @@
-@page "/CoursePages/{id:int}"
+@page "/course/{id:int}"
 @model Educational_platform.Pages.CoursePages.Course
 @{
     if (Model.CourseOnPage != null)
@@ -20,7 +20,7 @@
 
     @foreach (var coursePage in Model.CoursePages)
     {
-        <a asp-page="/CoursePages/CoursePage" asp-route-courseId="@coursePage.IdCourse" asp-route-pageId="@coursePage.IdPage">
+        <a asp-page="/course/CoursePage" asp-route-courseId="@coursePage.IdCourse" asp-route-pageId="@coursePage.IdPage">
             @coursePage.PageName
         </a><br>
     }
