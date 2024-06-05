@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Educational_platform.Pages.CoursePages
+namespace Educational_platform.Pages.course
 {
     public class CoursePage : PageModel
     {
@@ -21,6 +21,9 @@ namespace Educational_platform.Pages.CoursePages
 
         [BindProperty]
         public Models.Pages? PageContent { get; set; }
+
+        [BindProperty]
+        public List<Article>? ArticlesOnPage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int courseId, int pageId)
         {
