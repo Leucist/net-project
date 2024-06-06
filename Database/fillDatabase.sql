@@ -39,5 +39,10 @@
 -- DELETE FROM Pages;
 -- WHERE IdPage = 1 AND IdCourse = 1;
 
-INSERT INTO Pages (IdPage, IdCourse, Path, PageName)
-VALUES (1, 1, 'Pages/course/contents/page_1_1.json', 'Introduction');
+-- INSERT INTO Pages (IdPage, IdCourse, Path, PageName)
+-- VALUES (2, 1, 'Pages/course/contents/page_1_2.json', 'Networking and the Internet');
+
+-- INSERT INTO Pages (IdPage, IdCourse, Path, PageName)
+-- VALUES (3, 2, 'Pages/course/contents/page_2_1.json', 'Introduction to Environmental Science');
+
+SELECT * FROM Pages;
