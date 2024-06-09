@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: AswQ!2RT-g/TfX
+      MYSQL_DATABASE: EducationalPlatformDB
+      MYSQL_USER: revoDB
+      MYSQL_PASSWORD: whyThisName,Again?
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

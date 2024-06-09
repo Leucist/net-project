@@ -18,7 +18,8 @@ builder.Services.AddRazorPages();
 
 // Add the database context configuration here
 builder.Services.AddDbContext<UsersContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("EducationalPlatformDB")));
+    options.UseMySql(builder.Configuration.GetConnectionString("EducationalPlatformDB"), 
+    new MySqlServerVersion(new Version(8, 0, 2))));
 
 var app = builder.Build();
 
