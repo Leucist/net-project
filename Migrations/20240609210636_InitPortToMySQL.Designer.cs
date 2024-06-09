@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Educational_platform.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20240609175119_InitPortToMySQL")]
+    [Migration("20240609210636_InitPortToMySQL")]
     partial class InitPortToMySQL
     {
         /// <inheritdoc />
