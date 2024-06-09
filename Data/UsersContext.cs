@@ -21,19 +21,22 @@ namespace Educational_platform.Data
 
             // Configure composite primary key
             modelBuilder.Entity<Enrollments>()
-                .HasKey(e => new { e.IdCourses, e.IdUsers });
+                .HasKey(e => new { e.IdCourse, e.IdUser });
 
             // Configure one-to-many relationship between Enrollments and Courses
             modelBuilder.Entity<Enrollments>()
                 .HasOne(e => e.Course)
                 .WithMany(c => c.Enrollments)
-                .HasForeignKey(e => e.IdCourses);
+                .HasForeignKey(e => e.IdCourse);
 
             // Configure one-to-many relationship between Enrollments and Users
             modelBuilder.Entity<Enrollments>()
                 .HasOne(e => e.User)
                 .WithMany(u => u.Enrollments)
-                .HasForeignKey(e => e.IdUsers);
+                .HasForeignKey(e => e.IdUser);
+
+            modelBuilder.Entity<Models.Pages>()
+            .HasKey(p => new { p.IdCourse, p.IdPage });
 
             // Configure one-to-many relationship between Courses and Pages
             modelBuilder.Entity<Educational_platform.Models.Pages>()  // Fully qualify the Pages class

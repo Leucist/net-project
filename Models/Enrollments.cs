@@ -1,17 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Educational_platform.Models
 {
+    [PrimaryKey(nameof(IdCourse), nameof(IdUser))]
     public class Enrollments
     {
-        [Required]
-        [Key, Column(Order = 0)]
-        public int IdCourses { get; set; }
+        public int IdCourse { get; set; }
 
-        [Required]
-        [Key, Column(Order = 1)]
-        public int IdUsers { get; set; }
+        public int IdUser { get; set; }
 
         [ForeignKey("IdCourses")]
         public virtual Courses Course { get; set; }

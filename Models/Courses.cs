@@ -5,7 +5,7 @@ namespace Educational_platform.Models
 {
     public class Courses
     {
-        [Required]
+        [Key]
         public int Id { get; set; }
         
         [MaxLength(100)]

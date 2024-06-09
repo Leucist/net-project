@@ -58,9 +58,8 @@ namespace Educational_platform.Migrations
                 name: "Pages",
                 columns: table => new
                 {
-                    IdPage = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IdCourse = table.Column<int>(type: "int", nullable: false),
+                    IdPage = table.Column<int>(type: "int", nullable: false),
                     Path = table.Column<string>(type: "varchar(400)", maxLength: 400, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PageName = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false)
@@ -68,7 +67,7 @@ namespace Educational_platform.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pages", x => x.IdPage);
+                    table.PrimaryKey("PK_Pages", x => new { x.IdCourse, x.IdPage });
                     table.ForeignKey(
                         name: "FK_Pages_Courses_IdCourse",
                         column: x => x.IdCourse,
@@ -82,21 +81,23 @@ namespace Educational_platform.Migrations
                 name: "Enrollments",
                 columns: table => new
                 {
+                    IdCourse = table.Column<int>(type: "int", nullable: false),
+                    IdUser = table.Column<int>(type: "int", nullable: false),
                     IdCourses = table.Column<int>(type: "int", nullable: false),
                     IdUsers = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enrollments", x => new { x.IdCourses, x.IdUsers });
+                    table.PrimaryKey("PK_Enrollments", x => new { x.IdCourse, x.IdUser });
                     table.ForeignKey(
-                        name: "FK_Enrollments_Courses_IdCourses",
-                        column: x => x.IdCourses,
+                        name: "FK_Enrollments_Courses_IdCourse",
+                        column: x => x.IdCourse,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Enrollments_Users_IdUsers",
-                        column: x => x.IdUsers,
+                        name: "FK_Enrollments_Users_IdUser",
+                        column: x => x.IdUser,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -104,14 +105,9 @@ namespace Educational_platform.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_IdUsers",
+                name: "IX_Enrollments_IdUser",
                 table: "Enrollments",
-                column: "IdUsers");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pages_IdCourse",
-                table: "Pages",
-                column: "IdCourse");
+                column: "IdUser");
         }
 
         /// <inheritdoc />

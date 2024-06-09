@@ -45,30 +45,31 @@ namespace Educational_platform.Migrations
 
             modelBuilder.Entity("Educational_platform.Models.Enrollments", b =>
                 {
+                    b.Property<int>("IdCourse")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdCourses")
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     b.Property<int>("IdUsers")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                        .HasColumnType("int");
 
-                    b.HasKey("IdCourses", "IdUsers");
+                    b.HasKey("IdCourse", "IdUser");
 
-                    b.HasIndex("IdUsers");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("Educational_platform.Models.Pages", b =>
                 {
-                    b.Property<int>("IdPage")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("IdCourse")
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPage"));
-
-                    b.Property<int>("IdCourse")
+                    b.Property<int>("IdPage")
                         .HasColumnType("int");
 
                     b.Property<string>("PageName")
@@ -81,9 +82,7 @@ namespace Educational_platform.Migrations
                         .HasMaxLength(400)
                         .HasColumnType("varchar(400)");
 
-                    b.HasKey("IdPage");
-
-                    b.HasIndex("IdCourse");
+                    b.HasKey("IdCourse", "IdPage");
 
                     b.ToTable("Pages");
                 });
@@ -130,13 +129,13 @@ namespace Educational_platform.Migrations
                 {
                     b.HasOne("Educational_platform.Models.Courses", "Course")
                         .WithMany("Enrollments")
-                        .HasForeignKey("IdCourses")
+                        .HasForeignKey("IdCourse")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Educational_platform.Models.Users", "User")
                         .WithMany("Enrollments")
-                        .HasForeignKey("IdUsers")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
