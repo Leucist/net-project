@@ -1,0 +1,30 @@
+@page
+@model Educational_platform.Pages.course.AddCoursePage
+@{
+    ViewData["Title"] = "Add New Course Page";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h2>Add Page</h2>
+    <form asp-page="/Course" method="post">
+        <div>
+            <label for="pageCourseTitle" class="form-label">Course Title</label>
+            <input type="text" class="form-control" id="pageCourseTitle" required asp-for="NewPageCourseName">
+        </div>
+        <div>
+            <label for="pageTitle" class="form-label">Page Title</label>
+            <input type="text" class="form-control" id="pageTitle" required asp-for="NewPageName">
+        </div>
+        <div>
+            <label for="pageArticleHeader" class="form-label">Header of the article</label>
+            <input type="text" class="form-control" id="pageArticleHeader" required asp-for="NewPageContent.Header">
+        </div>
+        <div>
+            <label for="pageArticleText" class="form-label">Text of the article</label>
+            <textarea class="form-control" id="pageArticleText" required asp-for="NewPageContent.Text" cols="50" rows="30" wrap="soft" maxlength="5000" placeholder="Type the article of your future page here..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

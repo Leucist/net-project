@@ -39,7 +39,17 @@ namespace Educational_platform.Pages.course
 
         public override void Write(Utf8JsonWriter writer, List<PageContent> value, JsonSerializerOptions options)
         {
-            JsonSerializer.Serialize(writer, (object)value, value.GetType(), options);
+            writer.WriteStartArray();
+
+            foreach (var item in value)
+            {
+                if (item is Article article)
+                {
+                    JsonSerializer.Serialize(writer, article, options);
+                }
+            }
+
+            writer.WriteEndArray();
         }
     }
 }
