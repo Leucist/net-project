@@ -27,11 +27,11 @@ namespace Educational_platform.Pages
 
         [BindProperty]
         [Required]
-        public string? Username { get; set; }
+        public string Username { get; set; }
 
         [BindProperty]
         [Required]
-        public string? Password { get; set; }
+        public string Password { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {

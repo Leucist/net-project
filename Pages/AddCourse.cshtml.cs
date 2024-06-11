@@ -39,7 +39,14 @@ namespace Educational_platform.Pages
 
             // - Description and title may be checked - (c) leucist
 
+            // finds the greatest id among courses and makes new course's id greater than this by one 
+            int newCourseId = await _context.Courses
+                .OrderByDescending(c => c.Id)
+                .Select(c => c.Id)
+                .FirstOrDefaultAsync() + 1;
+
             var newCourse = new Courses {
+                Id = newCourseId,
                 Name = CourseTitle,
                 Description = CourseDescription,
             };

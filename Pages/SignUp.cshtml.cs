@@ -69,14 +69,20 @@ namespace Educational_platform.Pages
                 return Page();
             }
 
+            // finds the greatest id among users and makes new user's id greater than this by one 
+            int newUserId = await _context.Users
+                .OrderByDescending(u => u.Id)
+                .Select(u => u.Id)
+                .FirstOrDefaultAsync() + 1;
+
             // Create new user
             var newUser = new Users
             {
+                Id = newUserId,
                 Name = Name,
                 Surname = Surname,
                 Email = Email,
-                Username = Username,
-                // Password = password 
+                Username = Username
             };
             // Hash the password
             newUser.Password = _passwordHasher.HashPassword(newUser, Password);
