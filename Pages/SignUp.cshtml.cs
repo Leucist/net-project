@@ -74,6 +74,12 @@ namespace Educational_platform.Pages
                 .OrderByDescending(u => u.Id)
                 .Select(u => u.Id)
                 .FirstOrDefaultAsync() + 1;
+            
+            // gets the student role id from the database
+            int studentRole = await _context.Roles
+                .Where(r => r.Name.ToLower() == "student")
+                .Select(r => r.Id)
+                .FirstOrDefaultAsync();
 
             // Create new user
             var newUser = new Users
@@ -82,7 +88,8 @@ namespace Educational_platform.Pages
                 Name = Name,
                 Surname = Surname,
                 Email = Email,
-                Username = Username
+                Username = Username,
+                Role = studentRole
             };
             // Hash the password
             newUser.Password = _passwordHasher.HashPassword(newUser, Password);
