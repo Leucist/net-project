@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Educational_platform.Models
 {
@@ -29,9 +30,11 @@ namespace Educational_platform.Models
         public string Password { get; set; }
 
         [Required]
-        [MaxLength(7)]
-        public string Role { get; set; }
+        public int Role { get; set; }
 
         public virtual ICollection<Enrollments> Enrollments { get; set; }
+
+        [ForeignKey("Role")]
+        public virtual Role UserRole { get; set; }
     }
 }
