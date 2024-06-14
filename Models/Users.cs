@@ -28,6 +28,10 @@ namespace Educational_platform.Models
         [MaxLength(100)]
         public string Password { get; set; }
 
+        [Required]
+        [MaxLength(7)]
+        public string Role { get; set; }
+
         public virtual ICollection<Enrollments> Enrollments { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace Educational_platform.Data
         }
 
         public DbSet<Users> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<Courses> Courses { get; set; }
         public DbSet<Enrollments> Enrollments { get; set; }
         public DbSet<Educational_platform.Models.Pages> Pages { get; set; }  // Fully qualify the Pages class
