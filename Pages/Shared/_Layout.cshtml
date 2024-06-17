@@ -23,7 +23,6 @@
                 <a class="navbar-brand" href="/Index/">
                     <img src="~/images/logo.png" alt="Logo" style="height: 45px;" />
                 </a>
-
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -42,11 +41,37 @@
                     </ul>
 
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/SignUp/">
-                                <i class="fa-solid fa-arrow-right-to-bracket nav-link custom-icon-class"></i>
-                            </a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-page="/Profile">Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form method="post" asp-page="/Logout">
+                                            <button type="submit" class="dropdown-item">Log out</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/SignIn/">
+                                    Sign In
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/SignUp/">
+                                    Sign Up
+                                    @* <i class="fa-solid fa-arrow-right-to-bracket nav-link custom-icon-class"></i> *@
+                                </a>
+                            </li>
+                        }
                     </ul>
 
                     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">

@@ -1,15 +1,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace Educational_platform.Models
 {
-    public class Role
+    public class Role : IdentityRole
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
-        [MaxLength(7)]
-        public string Name { get; set; }
+        public virtual ICollection<Users> Users { get; set; }   /* navigation property */
     }
 }

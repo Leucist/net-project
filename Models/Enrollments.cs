@@ -4,17 +4,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Educational_platform.Models
 {
-    [PrimaryKey(nameof(IdCourse), nameof(IdUser))]
+    [PrimaryKey(nameof(CourseId), nameof(UserId))]
     public class Enrollments
     {
-        public int IdCourse { get; set; }
+        public int CourseId { get; set; }
 
-        public int IdUser { get; set; }
+        public string UserId { get; set; }
 
-        [ForeignKey("IdCourses")]
+        [ForeignKey(nameof(CourseId))]
         public virtual Courses Course { get; set; }
 
-        [ForeignKey("IdUsers")]
+        [ForeignKey(nameof(UserId))]
         public virtual Users User { get; set; }
     }
 }

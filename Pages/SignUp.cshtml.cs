@@ -17,13 +17,17 @@ namespace Educational_platform.Pages
     {
         // private readonly ILogger<SignUp> _logger;
         private readonly UsersContext _context;
-        private readonly PasswordHasher<Users> _passwordHasher;
+        // private readonly PasswordHasher<Users> _passwordHasher;
+        private readonly UserManager<Users> _userManager;
+        private readonly RoleManager<Role> _roleManager;
 
-        public SignUp(UsersContext context)
+        public SignUp(UsersContext context, UserManager<Users> userManager, RoleManager<Role> roleManager)
         {
             // _logger = logger;
             _context = context;
-            _passwordHasher = new PasswordHasher<Users>();
+            // _passwordHasher = new PasswordHasher<Users>();
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // [BindProperty]
@@ -59,7 +63,7 @@ namespace Educational_platform.Pages
 
             // Check if the user with the given username or email already exists
             var existingUser = await _context.Users
-                .Where(u => u.Username == Username || u.Email == Email)
+                .Where(u => u.UserName == Username || u.Email == Email)
                 .FirstOrDefaultAsync();
 
             if (existingUser != null)
@@ -69,39 +73,46 @@ namespace Educational_platform.Pages
                 return Page();
             }
 
-            // finds the greatest id among users and makes new user's id greater than this by one 
-            int newUserId = await _context.Users
-                .OrderByDescending(u => u.Id)
-                .Select(u => u.Id)
-                .FirstOrDefaultAsync() + 1;
-            
-            // gets the student role id from the database
-            int studentRole = await _context.Roles
-                .Where(r => r.Name.ToLower() == "student")
-                .Select(r => r.Id)
-                .FirstOrDefaultAsync();
+            // // Initialise student role
+            // Role studentRole = new Role
+            // {
+            //     Name = "student"
+            // };
 
             // Create new user
             var newUser = new Users
             {
-                Id = newUserId,
                 Name = Name,
                 Surname = Surname,
                 Email = Email,
-                Username = Username,
-                Role = studentRole
+                UserName = Username,
+                // Role = studentRole
             };
-            // Hash the password
-            newUser.Password = _passwordHasher.HashPassword(newUser, Password);
 
-            _context.Users.Add(newUser);
-            await _context.SaveChangesAsync();
+            // // Hash the password
+            // newUser.PasswordHash = _passwordHasher.HashPassword(newUser, Password);
+
+            // Adds new user
+            var result = await _userManager.CreateAsync(newUser, Password);
 
             // Redirect to the SignIn
             // return RedirectToAction("SignIn", "Account");
 
-            // Redirect to a success page or display a success message
-            return RedirectToPage("./SignIn");
+            if (result.Succeeded) {
+                await _context.SaveChangesAsync();
+                // Adds student role to the User
+                await _userManager.AddToRoleAsync(newUser, "student");
+                // Redirect to a success page or display a success message
+                return RedirectToPage("./SignIn");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return Page();
         }
 
         public void OnGet()

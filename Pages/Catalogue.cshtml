@@ -19,9 +19,15 @@
         </form>
     </div>
 
-    <div>
-        <a href="/AddCourse/">Add Course</a>
-    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.IsInRole("admin"))
+        {
+            <div>
+                <a href="/AddCourse/">Add Course</a>
+            </div>
+        }
+    }
 
     @if (Model.CoursesOnPage.Count == 0)
     {
@@ -39,6 +45,13 @@
                     <h2>@course.Name</h2>
                     <p>@course.Description</p>
                 </a>
+                @if (User.Identity.IsAuthenticated) {
+                    if (User.IsInRole("student")) {
+                        <form method="post" asp-page="/Catalogue">
+                            <button type="submit">Enroll</button>
+                        </form>
+                    }
+                }
             }
 
         </div>
