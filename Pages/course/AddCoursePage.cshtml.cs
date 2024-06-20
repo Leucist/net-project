@@ -17,6 +17,7 @@ namespace Educational_platform.Pages.course
     public class AddCoursePage : PageModel
     {
         private readonly UsersContext _context;
+        private readonly IWebHostEnvironment _environment;
 
         private Models.Pages _newPage;
 
@@ -24,9 +25,10 @@ namespace Educational_platform.Pages.course
         [Required]
         public ViewModels.NewPageContent NewPageContent { get; set; }
 
-        public AddCoursePage(UsersContext context)
+        public AddCoursePage(UsersContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
             _newPage = new Models.Pages();
             NewPageContent = new ViewModels.NewPageContent();
         }
@@ -84,19 +86,19 @@ namespace Educational_platform.Pages.course
                 .Select(p => p.IdPage)
                 .FirstOrDefaultAsync() + 1;
 
-            
             // - Saving the videofile -
             if (videoFile != null && videoFile.Length > 0)
             {
-                // var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
-                // if (!Directory.Exists(uploadsFolder))
-                // {
-                //     Directory.CreateDirectory(uploadsFolder);
-                // }
-                // var filePath = Path.Combine(uploadsFolder, videoFile.FileName);
+                var videosFolder = Path.Combine(_environment.WebRootPath, "videos");
+                if (!Directory.Exists(videosFolder))
+                {
+                    Directory.CreateDirectory(videosFolder);
+                }
+                // string videoPath = Path.Combine(videosFolder, videoFile.FileName);
 
-                string videoPath = "Pages/course/contents/videos/" + existingCourse.Id + "_" + newPageId + "_" + videoFile.FileName;
-                using (var stream = new FileStream(videoPath, FileMode.Create))
+                string filePath = videosFolder + "/" + existingCourse.Id + "_" + newPageId + "_" + videoFile.FileName;
+                string videoPath = "/videos/" + existingCourse.Id + "_" + newPageId + "_" + videoFile.FileName;
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await videoFile.CopyToAsync(stream);
                 }
@@ -109,10 +111,7 @@ namespace Educational_platform.Pages.course
 
 
 
-            List<PageContent> pageContent = new List<PageContent>();
-            foreach (Article article in NewPageContent.TextSections) {
-                pageContent.Add(article);
-            }
+            List<PageContent> pageContent = [.. NewPageContent.TextSections];
             if (NewPageContent.Video is not null) {
                 pageContent.Add(NewPageContent.Video);
             }

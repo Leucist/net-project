@@ -72,7 +72,7 @@ namespace Educational_platform.Pages
         }
 
         public async Task LoadDefaultCoursesAsync() {
-            CourseList CoursesOnPage = await _courseService.GetTopCoursesAsync(shownCoursesAmount);
+            CoursesOnPage = await _courseService.GetTopCoursesAsync(shownCoursesAmount);
         }
     }
 }

@@ -8,10 +8,6 @@ namespace Educational_platform.Pages.course
     public class Video : PageContent {
         public string? Path { get; set; }
 
-        public Video() {
-            Type = ContentType.Video;
-        }
-
         public Video(string path)
         {
             Type = ContentType.Video;

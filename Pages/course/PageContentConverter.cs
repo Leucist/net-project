@@ -47,6 +47,10 @@ namespace Educational_platform.Pages.course
                 {
                     JsonSerializer.Serialize(writer, article, options);
                 }
+                else if (item is Video video)
+                {
+                    JsonSerializer.Serialize(writer, video, options);
+                }
             }
 
             writer.WriteEndArray();

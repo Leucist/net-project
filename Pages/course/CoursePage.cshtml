@@ -21,7 +21,16 @@
                     <p2>@article.Text</p2>
                 }
             }
-            else if (content.Type == ContentType.Video) { <p>Future job</p> }
+            else if (content.Type == ContentType.Video) { 
+                Video videoContent = (Video)content;
+                <!-- Video Player -->
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video class="embed-responsive-item" controls>
+                        <source src="@videoContent.Path" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            }
             else if (content.Type == ContentType.Test) { <p>Future job</p> }
         </div>
     }
