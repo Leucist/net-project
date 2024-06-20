@@ -71,6 +71,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 // Register IServiceScopeFactory
 builder.Services.AddSingleton<IServiceScopeFactory>(serviceProvider => builder.Services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>());
 
+
+
 builder.Services.AddProjectService();
 
 var app = builder.Build();

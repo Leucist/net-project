@@ -15,45 +15,29 @@
     <div class="top-courses">
         <h2>Top Courses</h2>
         <div class="top-row">
-            <div class="course-card">
-                <img src="~/images/top-course1.png" alt="Top Course 1">
-                <div class="course-info">
-                    <h3>Top Course 1</h3>
-                    <p>Course description goes here.</p>
+            @for (int i=0; i < Model.CoursesOnPage.Courses.Count/2; i++) {
+                <div class="course-card">
+                    <div class="course-info">
+                        <a asp-page="/course/Course" asp-route-id="@Model.CoursesOnPage.Courses[i].Id">
+                            <h3>@(i+1). @Model.CoursesOnPage.Courses[i].Name</h3>
+                            <p>@Model.CoursesOnPage.Courses[i].Description</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="course-card">
-                <img src="~/images/top-course2.png" alt="Top Course 2">
-                <div class="course-info">
-                    <h3>Top Course 2</h3>
-                    <p>Course description goes here.</p>
-                </div>
-            </div>
+            }
         </div>
         <div class="bottom-row">
-            <div class="course-card">
-                <img src="~/images/course3.png" alt="Course 3">
-                <div class="course-info">
-                    <h3>Course 3</h3>
-                    <p>Course description goes here.</p>
+            @for (int i=Model.CoursesOnPage.Courses.Count/2; i < Model.CoursesOnPage.Courses.Count; i++) {
+                <div class="course-card">
+                    <div class="course-info">
+                        <a asp-page="/course/Course" asp-route-id="@Model.CoursesOnPage.Courses[i].Id">
+                            <h3>@(i+1). @Model.CoursesOnPage.Courses[i].Name</h3>
+                            <p>@Model.CoursesOnPage.Courses[i].Description</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="course-card">
-                <img src="~/images/course4.png" alt="Course 4">
-                <div class="course-info">
-                    <h3>Course 4</h3>
-                    <p>Course description goes here.</p>
-                </div>
-            </div>
-            <div class="course-card">
-                <img src="~/images/course5.png" alt="Course 5">
-                <div class="course-info">
-                    <h3>Course 5</h3>
-                    <p>Course description goes here.</p>
-                </div>
-            </div>
+            }
         </div>
     </div>
-
 </div>
 

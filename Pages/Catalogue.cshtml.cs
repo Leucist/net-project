@@ -8,12 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using Educational_platform.ViewModels;
 using Educational_platform.Services;
 using Educational_platform.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Educational_platform.Pages
 {
     public class CatalogueModel : PageModel
     {
         private readonly ICourseService _courseService;
+        // private readonly UsersContext _context;
+
+        // private readonly UserManager<IdentityUser> _userManager;
 
         private int shownCoursesAmount = 10;
 
@@ -22,9 +26,14 @@ namespace Educational_platform.Pages
         [BindProperty]
         public string? KeywordsInput { get; set; }
 
+        [BindProperty]
+        public int courseId { get; set; }
+
         public CatalogueModel(ICourseService courseService)
         {
             _courseService = courseService;
+            // _context = context;
+            // _userManager = userManager;
             CoursesOnPage = new CourseList();
         }
 
@@ -65,6 +74,42 @@ namespace Educational_platform.Pages
 
             return Page();
         }
+
+        // public async Task<IActionResult> OnPostEnrollAsync() {
+        //     if (!User.IsInRole("student"))
+        //     {
+        //         return Forbid(); // Return 403
+        //     }
+        //     var course = await _courseService.GetCourseInfoAsync(courseId);
+        //     if (course == null) {
+        //         return Page();
+        //     }
+
+        //     var user = await _userManager.GetUserAsync(User);
+        //     string userId = user.Id;
+            
+
+        //     var existingEnrollment = await _context.Enrollments
+        //         .Where(e => e.CourseId == courseId && e.UserId == userId)
+        //         .FirstOrDefaultAsync();
+
+        //     if (existingEnrollment != null)
+        //     {
+        //         return Page();
+        //     }
+
+        //     // Creates new record
+        //     var newEnrollment = new Enrollments
+        //     {
+        //         CourseId = courseId,
+        //         UserId = userId
+        //     };
+
+        //     _context.Enrollments.Add(newEnrollment);
+        //     await _context.SaveChangesAsync();
+
+        //     return RedirectToPage("/Catalogue");
+        // }
 
         public async Task OnGetAsync()
         {

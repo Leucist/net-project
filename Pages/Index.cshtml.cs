@@ -1,3 +1,5 @@
+using Educational_platform.Interfaces;
+using Educational_platform.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -5,16 +7,21 @@ namespace Educational_platform.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ICourseService _courseService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        [BindProperty]
+        public CourseList CoursesOnPage { get; set; }
+
+        public IndexModel(ICourseService courseService)
         {
-            _logger = logger;
+            _courseService = courseService;
+            CoursesOnPage = new CourseList();
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync() 
         {
-
+            CoursesOnPage = await _courseService.GetTopCoursesAsync(5);
+            return Page();
         }
     }
 }

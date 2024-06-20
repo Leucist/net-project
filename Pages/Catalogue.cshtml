@@ -47,7 +47,8 @@
                 </a>
                 @if (User.Identity != null && User.Identity.IsAuthenticated) {
                     if (User.IsInRole("student")) {
-                        <form method="post" asp-page="/Catalogue">
+                        <form method="post" asp-page="/Catalogue" asp-page-handler="Enroll">
+                            @* <input type="hidden" name="fieldName" value="@course.Id" /> *@
                             <button type="submit">Enroll</button>
                         </form>
                     }
