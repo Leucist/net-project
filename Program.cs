@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Educational_platform.Data;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Educational_platform;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,8 +68,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     // };
 });
 
-// builder.Services.AddHttpContextAccessor();
+// Register IServiceScopeFactory
+builder.Services.AddSingleton<IServiceScopeFactory>(serviceProvider => builder.Services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>());
 
+builder.Services.AddProjectService();
 
 var app = builder.Build();
 

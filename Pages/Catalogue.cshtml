@@ -39,7 +39,7 @@
     else
     {
         <div class="course-list">
-            @foreach (var course in Model.CoursesOnPage)
+            @foreach (var course in Model.CoursesOnPage.Courses)
             {
                 <a asp-page="/course/Course" asp-route-id="@course.Id">
                     <h2>@course.Name</h2>

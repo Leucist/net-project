@@ -5,24 +5,27 @@ using Educational_platform.Models;
 using Educational_platform.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Educational_platform.ViewModels;
+using Educational_platform.Services;
+using Educational_platform.Interfaces;
 
 namespace Educational_platform.Pages
 {
     public class CatalogueModel : PageModel
     {
-        private readonly UsersContext _context;
+        private readonly ICourseService _courseService;
 
         private int shownCoursesAmount = 10;
 
         [BindProperty]
-        public HashSet<Courses> CoursesOnPage { get; set; }     /* HashSet to avoid duplicates in search */
+        public CourseList CoursesOnPage { get; set; }
         [BindProperty]
-        public string KeywordsInput { get; set; }
+        public string? KeywordsInput { get; set; }
 
-        public CatalogueModel(UsersContext context)
+        public CatalogueModel(ICourseService courseService)
         {
-            _context = context;
-            CoursesOnPage = new HashSet<Courses>();
+            _courseService = courseService;
+            CoursesOnPage = new CourseList();
         }
 
         public async Task<IActionResult> OnPostAsync() {
@@ -32,25 +35,33 @@ namespace Educational_platform.Pages
                 return Page();
             }
             string[] keywords = KeywordsInput.Trim().Split(' ');
+
+            HashSet<CourseInfo> coursesFound = new HashSet<CourseInfo>();
+
             // Using async search for each keyword
             var tasks = keywords.Select(async keyword => {
-                // Retrieves 10 courses, where each matches at least one keyword from the KeywordsInput 
-                var result = await _context.Courses
-                    .Where(c => c.Name.Contains(keyword) || c.Description.Contains(keyword))
-                    // .OrderBy(c => c.Enrollments.Count) - may be used to form the top of some sort - (c) leucist
-                    .Take(shownCoursesAmount)
-                    .ToListAsync();
-
-                lock(CoursesOnPage) {
-                    foreach(var course in result) {
-                        // if there are still less than 'shownCoursesAmount' number of courses found
-                        if (!(CoursesOnPage.Count >= shownCoursesAmount))
-                        CoursesOnPage.Add(course);
+                // Retrieves courses which name or description matches at least one keyword from the KeywordsInput 
+                var result = await _courseService.FindCoursesAsync(keyword);
+                // foreach (var course in result.Courses) {
+                //     coursesFound.Add(course);
+                // }
+                bool alreadyExists = false;
+                foreach (var newCourse in result.Courses) {
+                    foreach (var course in coursesFound) {
+                        if (course.Name == newCourse.Name){
+                            alreadyExists = true;
+                        }
+                    }
+                    if (!alreadyExists) {
+                        coursesFound.Add(newCourse);
                     }
                 }
             });
             // Waits until all of the threads are completed
             await Task.WhenAll(tasks);
+
+            CoursesOnPage.Courses = coursesFound.ToList();
+            CoursesOnPage.Count = coursesFound.Count;
 
             return Page();
         }
@@ -60,17 +71,8 @@ namespace Educational_platform.Pages
             await LoadDefaultCoursesAsync();
         }
 
-        private async Task LoadDefaultCoursesAsync() {
-            // Buffer variable to store newly retrieved courses before their placement in HashSet
-            List<Courses> coursesOnPage;
-            // Retrieves the first 'shownCoursesAmount' number of courses from the database
-            coursesOnPage = await _context.Courses
-                .OrderBy(c => c.Id)
-                .Take(shownCoursesAmount)
-                .ToListAsync();
-            foreach (var course in coursesOnPage) {
-                CoursesOnPage.Add(course);
-            }
+        public async Task LoadDefaultCoursesAsync() {
+            CourseList CoursesOnPage = await _courseService.GetTopCoursesAsync(shownCoursesAmount);
         }
     }
 }

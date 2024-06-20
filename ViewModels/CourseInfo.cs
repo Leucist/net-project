@@ -7,7 +7,14 @@ namespace Educational_platform.ViewModels
 {
     public class CourseInfo
     {
-        public string CourseName { get; set; }
-        public string CourseDescription { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public CourseInfo(int courseId, string courseName, string courseDescription) {
+            Id = courseId;
+            Name = courseName;
+            Description = courseDescription;
+        }
     }
 }
