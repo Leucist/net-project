@@ -5,12 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Educational_platform.Data;
 using Educational_platform.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Educational_platform.Pages
 {
+    [Authorize(Roles = "admin")]
     public class AddCourse : PageModel
     {
         private readonly UsersContext _context;

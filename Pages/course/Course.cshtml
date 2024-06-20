@@ -31,5 +31,10 @@ else
 {
     <p>Course not found.</p>
 }
-<br><br><br><br><br><br><br>
-<a asp-page="AddCoursePage">Add Page</a>
+
+@if (User.Identity.IsAuthenticated) {
+    if (User.IsInRole("admin")) {
+        <br><br><br><br><br><br><br>
+        <a asp-page="AddCoursePage">Add Page</a>
+    }
+}

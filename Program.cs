@@ -2,11 +2,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Educational_platform.Data;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// - Added so the server will be visible in a local network - (c) leucist
-// builder.WebHost.UseUrls("http://0.0.0.0:5000");
+// - Added so the server will be visible in the network - (c) leucist
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 
 // AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "Database"));
@@ -35,16 +36,38 @@ builder.Services.AddIdentity<Educational_platform.Models.Users, Educational_plat
     .AddEntityFrameworkStores<UsersContext>()
     .AddDefaultTokenProviders();
 
+// builder.Services.AddDefaultIdentity<Educational_platform.Models.Users>()
+//     .AddRoles<Educational_platform.Models.Role>()
+//     .AddEntityFrameworkStores<UsersContext>()
+//     .AddDefaultTokenProviders();
+
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.Name = "Revo.Cookie";
     options.Cookie.SameSite = SameSiteMode.Lax;
     options.LoginPath = "/SignIn";
     options.LogoutPath = "/Logout";
-    // options.AccessDeniedPath = "/AccessDenied";
+    options.AccessDeniedPath = "/Error403";
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+
+    // options.Events = new CookieAuthenticationEvents
+    // {
+    //     OnRedirectToAccessDenied = context =>
+    //     {
+    //         context.Response.Redirect("/Error403");
+    //         return Task.CompletedTask;
+    //     },
+    //     OnRedirectToLogin = context =>
+    //     {
+    //         context.Response.Redirect("/SignIn");
+    //         return Task.CompletedTask;
+    //     }
+    // };
 });
+
+// builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
