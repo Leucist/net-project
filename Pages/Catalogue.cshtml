@@ -19,7 +19,7 @@
         </form>
     </div>
 
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
     {
         @if (User.IsInRole("admin"))
         {
@@ -45,7 +45,7 @@
                     <h2>@course.Name</h2>
                     <p>@course.Description</p>
                 </a>
-                @if (User.Identity.IsAuthenticated) {
+                @if (User.Identity != null && User.Identity.IsAuthenticated) {
                     if (User.IsInRole("student")) {
                         <form method="post" asp-page="/Catalogue">
                             <button type="submit">Enroll</button>

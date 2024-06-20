@@ -6,7 +6,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div>
+@* <div>
     <h2>Add Page</h2>
     <form asp-page="/Course" method="post">
         <div>
@@ -27,4 +27,144 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
+</div> *@
+
+
+
+@* <form method="post" asp-page-handler="AddTextSection" class="add_content_btns">
+    @for (var i = 0; i < Model.NewPageContent.TextSections.Count; i++)
+    {
+        <div class="text-section">
+            <div>
+                <label asp-for="@Model.NewPageContent.TextSections[i].Header" class="form-label">Header of the section:</label>
+                <input asp-for="@Model.NewPageContent.TextSections[i].Header" class="form-control" required />
+            </div>
+            <div>
+                <label asp-for="@Model.NewPageContent.TextSections[i].Text" class="form-label">Text of the section:</label>
+                <textarea asp-for="@Model.NewPageContent.TextSections[i].Text" class="form-control" rows="5" required></textarea>
+            </div>
+        </div>
+    }
+    <button type="submit" class="btn btn-primary">Add Text Section</button>
+</form>
+<form method="post" asp-page-handler="AddVideo" class="add_content_btns">
+    <button type="submit" class="btn btn-primary">Add Video</button>
+</form>
+<form method="post" asp-page-handler="AddTest" class="add_content_btns">
+    <button type="submit" class="btn btn-primary">Add Test</button>
+</form> *@
+
+
+
+
+
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <label for="pageCourseTitle" class="form-label">Course Title</label>
+        <input type="text" class="form-control" id="pageCourseTitle" required asp-for="NewPageContent.CourseName">
+    </div>
+    <div>
+        <label for="pageTitle" class="form-label">Page Title</label>
+        <input type="text" class="form-control" id="pageTitle" required asp-for="NewPageContent.PageName">
+    </div>
+    <!-- Articles -->
+    <div id="textSections">
+        @for (var i = 0; i < Model.NewPageContent.TextSections.Count; i++)
+        {
+            <div class="text-section">
+                <div>
+                    <label asp-for="@Model.NewPageContent.TextSections[i].Header" class="form-label">Header of the section</label>
+                    <input asp-for="@Model.NewPageContent.TextSections[i].Header" class="form-control" required />
+                </div>
+                <div>
+                    <label asp-for="@Model.NewPageContent.TextSections[i].Text" class="form-label">Text of the section</label>
+                    <textarea asp-for="@Model.NewPageContent.TextSections[i].Text" class="form-control" rows="5" required></textarea>
+                </div>
+            </div>
+        }
+    </div>
+
+    @* <!-- Кнопка для добавления новых абзацев -->
+    <button type="button" class="btn btn-primary" id="addTextSection">Add Text Section</button> *@
+
+    <!-- Видеофайл -->
+    <div>
+        <label for="videoFile" class="form-label">Upload Video File</label>
+        <input type="file" id="videoFile" name="videoFile" class="form-control-file" />
+    </div>
+
+    @* <!-- Тест -->
+    <div>
+        <h3>Create Test</h3>
+        <div id="testQuestions">
+            @for (var i = 0; i < Model.NewPageContent.Test.Questions.Count; i++)
+            {
+                <div class="test-question">
+                    <div>
+                        <label asp-for="@Model.NewPageContent.Test.Questions[i].question" class="form-label">Question</label>
+                        <input asp-for="@Model.NewPageContent.Test.Questions[i].question" class="form-control" required />
+                    </div>
+                    <div>
+                        <label class="form-label">Answers</label>
+                        @foreach (var answer in Model.NewPageContent.Test.Questions[i].answers)
+                        {
+                            <div>
+                                <input type="text" class="form-control" value="@answer.Key" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <button type="button" class="btn btn-primary" id="addTestQuestion">Add Test Question</button>
+    </div> *@
+
+    <button type="submit" class="btn btn-success">Save Page</button>
+</form>
+
+@* @section Scripts {
+    <script>
+        // Adding new text sections
+        var textSectionIndex = @Model.NewPageContent.TextSections.Count;
+        document.getElementById('addTextSection').addEventListener('click', function () {
+            var textSections = document.getElementById('textSections');
+            var div = document.createElement('div');
+            div.classList.add('text-section');
+            div.innerHTML = `
+                <div>
+                    <label class="form-label">Header of the section</label>
+                    <input name="NewPageContent.TextSections[${textSectionIndex}].Header" class="form-control" required />
+                </div>
+                <div>
+                    <label class="form-label">Text of the section</label>
+                    <textarea name="NewPageContent.TextSections[${textSectionIndex}].Text" class="form-control" rows="5" required></textarea>
+                </div>
+            `;
+            textSections.appendChild(div);
+            textSectionIndex++;
+        });
+
+        // Adding new questions to the test
+        var testQuestionIndex = @Model.NewPageContent.Test == null ? 0 : Model.NewPageContent.Test.Questions.Count;
+        document.getElementById('addTestQuestion').addEventListener('click', function () {
+            var testQuestions = document.getElementById('testQuestions');
+            var div = document.createElement('div');
+            div.classList.add('test-question');
+            div.innerHTML = `
+                <div>
+                    <label class="form-label">Question</label>
+                    <input name="NewPageContent.Test.Questions[${testQuestionIndex}].Question" class="form-control" required />
+                </div>
+                <div>
+                    <label class="form-label">Answers</label>
+                    <div>
+                        <input type="text" name="NewPageContent.Test.Questions[${testQuestionIndex}].Answers[0].Key" class="form-control" required />
+                    </div>
+                    <button type="button" class="btn btn-primary">Add Answer</button>
+                </div>
+            `;
+            testQuestions.appendChild(div);
+            testQuestionIndex++;
+        });
+    </script>
+} *@
